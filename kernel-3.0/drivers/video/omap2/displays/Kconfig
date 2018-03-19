@@ -1,0 +1,124 @@
+menu "OMAP2/3 Display Device Drivers"
+        depends on OMAP2_DSS
+
+config PANEL_GENERIC_DPI
+        tristate "Generic DPI Panel"
+	depends on OMAP2_DSS_DPI
+        help
+	  Generic DPI panel driver.
+	  Supports DVI output for Beagle and OMAP3 SDP.
+	  Supports LCD Panel used in TI SDP3430 and EVM boards,
+	  OMAP3517 EVM boards and CM-T35.
+
+config PANEL_LGPHILIPS_LB035Q02
+	tristate "LG.Philips LB035Q02 LCD Panel"
+	depends on OMAP2_DSS_DPI && SPI
+	help
+	  LCD Panel used on the Gumstix Overo Palo35
+
+config PANEL_SHARP_LS037V7DW01
+        tristate "Sharp LS037V7DW01 LCD Panel"
+        depends on OMAP2_DSS_DPI
+        select BACKLIGHT_CLASS_DEVICE
+        help
+          LCD Panel used in TI's SDP3430 and EVM boards
+
+config PANEL_NEC_NL8048HL11_01B
+	tristate "NEC NL8048HL11-01B Panel"
+	depends on OMAP2_DSS_DPI
+	help
+		This NEC NL8048HL11-01B panel is TFT LCD
+		used in the Zoom2/3/3630 sdp boards.
+
+config PANEL_TAAL
+        tristate "Taal DSI Panel"
+        depends on OMAP2_DSS_DSI
+        help
+          Taal DSI command mode panel from TPO.
+
+config PANEL_TPO_TD043MTEA1
+        tristate "TPO TD043MTEA1 LCD Panel"
+        depends on OMAP2_DSS_DPI && SPI
+        help
+          LCD Panel used in OMAP3 Pandora
+
+config PANEL_ACX565AKM
+	tristate "ACX565AKM Panel"
+	depends on OMAP2_DSS_SDI && SPI
+	select BACKLIGHT_CLASS_DEVICE
+	help
+	  This is the LCD panel used on Nokia N900
+
+config PANEL_TC358765
+	tristate "Toshiba TC358765 DSI-2-LVDS chip"
+	depends on OMAP2_DSS_DSI && I2C
+	select BACKLIGHT_CLASS_DEVICE
+	help
+	  Toshiba TC358765 DSI-2-LVDS chip with 1024x768 panel
+config TC358765_DEBUG
+	bool "Toshiba TC358765 DSI-2-LVDS chip debug"
+	depends on PANEL_TC358765 && DEBUG_FS
+	help
+	  Support of TC358765 DSI-2-LVDS chip register access via debugfs
+	  
+config PANEL_INNOCOMM_ORACLE
+	tristate "InnoComm Oracle Panel"
+	help
+	  LCD Panel used in InnoComm Oracle board		  
+
+config PANEL_INNOCOMM_TC978C
+	tristate "InnoComm tc978c TM Panel"
+	help
+	  LCD Panel used in InnoComm tc978c board
+
+	  
+config PANEL_OMAP4_TALOS7
+	tristate "OMAP4 Talos7 Panel"
+	select OMAP2_DSS_DPI
+	help
+	  LCD Panel used in OMAP4 Talos7 board
+
+config PANEL_OMAP4_TALOS10
+	tristate "OMAP4 Talos10 Panel"
+	select OMAP2_DSS_DPI
+	help
+	  LCD Panel used in OMAP4 Talos10 board
+
+config PANEL_HV070WX1
+	tristate "OMAP4 Zeus Panel"
+	depends on OMAP2_DSS_DSI
+	help
+	  LCD Panel used in OMAP4 Zeus board
+
+config PANEL_B101EW05
+	tristate "OMAP4 AUO B101EW05 10.1-inch Panel"
+	select OMAP2_DSS_DPI
+	help
+	  10.1-inch (1280x800) LCD panel used in OMAP4 Puzzle board
+
+config PANEL_S194TALAA0
+	tristate "OMAP4 TOVIS S194TALAA0 19.4-inch Panel"
+	select OMAP2_DSS_DSI
+	select PANEL_TC358765
+	select TC358765_DEBUG
+	help
+	  19.4-inch (1920*530) LCD panel used in OMAP4 Puzzle board
+
+config PANEL_LS047K1SX01F
+	tristate "OMAP4 Saga Panel"
+	depends on OMAP2_DSS_DSI
+	help
+	  LCD Panel used in OMAP4 Saga board
+
+config PANEL_BF097XN
+	tristate "OMAP4 CMI BF097XN  9.7-inch Panel"
+	select OMAP2_DSS_DPI
+	help
+	  9.7-inch (1024x768) LCD panel used in OMAP4 Winmate board
+
+config PANEL_LS047K1SX01
+	tristate "OMAP4 Saga Panel with Himax driver IC"
+	depends on OMAP2_DSS_DSI
+	help
+	  LCD Panel used in OMAP4 Saga board
+endmenu

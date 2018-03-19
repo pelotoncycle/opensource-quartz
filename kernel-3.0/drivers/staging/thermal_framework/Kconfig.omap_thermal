@@ -1,0 +1,43 @@
+config OMAP_THERMAL
+	bool "OMAP Thermal Framework support"
+	depends on THERMAL_FRAMEWORK && ARCH_OMAP4
+	default y
+	help
+	  This is the thermal framework support for OMAP4
+	  processors.
+
+config OMAP4430_THERMAL_MINIMAL_CPU_FREQUENCY
+	int "OMAP4430 minimal CPU frequency in HZ for thermal framework"
+	default 800000
+	depends on OMAP_THERMAL
+	help
+	  The minimal thermal CPU frequency limitation will be greater than this value.
+
+config OMAP4460_THERMAL_MINIMAL_CPU_FREQUENCY
+	int "OMAP4460 minimal CPU frequency in HZ for thermal framework"
+	default 900000
+	depends on OMAP_THERMAL
+	help
+	  The minimal thermal CPU frequency limitation will be greater than this value.
+
+config OMAP4470_THERMAL_MINIMAL_CPU_FREQUENCY
+	int "OMAP4470 minimal CPU frequency in HZ for thermal framework"
+	default 1000000
+	depends on OMAP_THERMAL
+	help
+	  The minimal thermal CPU frequency limitation will be greater than this value.
+
+config OMAP_THERMAL_DEBUG
+	bool "Enable OMAP thermal debug logs"
+	depends on OMAP_THERMAL
+	default n
+
+config OMAP_THERMAL_DEBUG_VERBOSE
+	bool "Enable OMAP thermal verbose debug logs"
+	depends on OMAP_THERMAL
+	default n
+
+source "drivers/staging/thermal_framework/sensor/Kconfig.omap"
+source "drivers/staging/thermal_framework/governor/Kconfig.omap"
+
+

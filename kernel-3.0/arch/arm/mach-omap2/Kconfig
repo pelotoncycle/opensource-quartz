@@ -1,0 +1,1136 @@
+if ARCH_OMAP2PLUS
+
+menu "TI OMAP2/3/4 Specific Features"
+
+config ARCH_OMAP2PLUS_TYPICAL
+	bool "Typical OMAP configuration"
+	default y
+	select AEABI
+	select REGULATOR
+	select PM
+	select PM_RUNTIME
+	select VFP
+	select NEON if ARCH_OMAP3 || ARCH_OMAP4
+	select SERIAL_OMAP
+	select SERIAL_OMAP_CONSOLE
+	select I2C
+	select I2C_OMAP
+	select MFD_SUPPORT
+	select MENELAUS if ARCH_OMAP2
+	select TWL4030_CORE if ARCH_OMAP3 || ARCH_OMAP4
+	select TWL4030_POWER if ARCH_OMAP3 || ARCH_OMAP4
+	help
+	  Compile a kernel suitable for booting most boards
+
+config ARCH_OMAP2
+	bool "TI OMAP2"
+	depends on ARCH_OMAP2PLUS
+	default y
+	select CPU_V6
+
+config ARCH_OMAP3
+	bool "TI OMAP3"
+	depends on ARCH_OMAP2PLUS
+	default y
+	select CPU_V7
+	select USB_ARCH_HAS_EHCI
+	select ARM_L1_CACHE_SHIFT_6 if !ARCH_OMAP4
+	select ARCH_HAS_OPP
+	select PM_OPP if PM
+
+config ARCH_OMAP4
+	bool "TI OMAP4"
+	default y
+	depends on ARCH_OMAP2PLUS
+	select CPU_V7
+	select ARM_GIC
+	select LOCAL_TIMERS if SMP
+	select PL310_ERRATA_588369 if CACHE_L2X0 ## CONFIG_CACHE_L2X0 (James Wu: fixed typo)
+	select PL310_ERRATA_727915 if CACHE_L2X0 ## CONFIG_CACHE_L2X0 (James Wu: fixed typo)
+	select ARM_ERRATA_720789
+	select ARCH_HAS_OPP
+	select PM_OPP if PM
+	select USB_ARCH_HAS_EHCI
+	select ARCH_HAS_BARRIERS
+	select ARM_ERRATA_754322
+	select ARM_ERRATA_775420
+	select ARM_ERRATA_764369 if SMP
+
+config OMAP4430_VDD_MPU_MARGIN
+	int "OMAP4430 MPU OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware MPU margin to add to OPP calibrated
+
+config OMAP4430_VDD_IVA_MARGIN
+	int "OMAP4430 IVA OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware IVA margin to add to OPP calibrated
+
+config OMAP4430_VDD_CORE_MARGIN
+	int "OMAP4430 CORE OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware CORE margin to add to OPP calibrated
+
+config OMAP4460_VDD_MPU_MARGIN
+	int "OMAP4460 MPU OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware MPU margin to add to OPP calibrated
+
+config OMAP4460_VDD_IVA_MARGIN
+	int "OMAP4460 IVA OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware IVA margin to add to OPP calibrated
+
+config OMAP4460_VDD_CORE_MARGIN
+	int "OMAP4460 CORE OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware CORE margin to add to OPP calibrated
+
+config OMAP4470_VDD_MPU_MARGIN
+	int "OMAP4470 MPU OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware MPU margin to add to OPP calibrated
+
+config OMAP4470_VDD_IVA_MARGIN
+	int "OMAP4470 IVA OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware IVA margin to add to OPP calibrated
+
+config OMAP4470_VDD_CORE_MARGIN
+	int "OMAP4470 CORE OPP voltage margin (uV)"
+	default 0
+	depends on ARCH_OMAP4 && PM_OPP
+	help
+	  Additional sofware CORE margin to add to OPP calibrated
+
+config OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	bool "OMAP4 LPDDR2 EMIF setup/detection"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_TWL6032_NON_DVS_RANGE_VSEL_DEBUG
+	bool "Turn on debug for TWL6032 SMPS1/2/5 non-DVS range VSEL"
+	default n
+	depends on ARCH_OMAP4
+
+menu "OMAP4 HWMOD Configurations"
+	depends on ARCH_OMAP4
+
+menu "Don't reset the module at boot"
+
+config OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	bool "Don't reset GPIO1 module"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	bool "Don't reset GPIO2 module"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	bool "Don't reset GPIO3 module"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	bool "Don't reset GPIO4 module"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	bool "Don't reset GPIO5 module"
+	default n
+	depends on ARCH_OMAP4
+
+config OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+	bool "Don't reset GPIO6 module"
+	default n
+	depends on ARCH_OMAP4
+
+endmenu
+
+endmenu
+
+comment "OMAP Core Type"
+	depends on ARCH_OMAP2
+
+config SOC_OMAP2420
+	bool "OMAP2420 support"
+	depends on ARCH_OMAP2
+	default y
+	select OMAP_DM_TIMER
+	select ARCH_OMAP_OTG
+
+config SOC_OMAP2430
+	bool "OMAP2430 support"
+	depends on ARCH_OMAP2
+	default y
+	select ARCH_OMAP_OTG
+
+config SOC_OMAP3430
+	bool "OMAP3430 support"
+	depends on ARCH_OMAP3
+	default y
+	select ARCH_OMAP_OTG
+
+config SOC_OMAPTI816X
+	bool "TI816X support"
+	depends on ARCH_OMAP3
+	default y
+
+config OMAP_PACKAGE_ZAF
+       bool
+
+config OMAP_PACKAGE_ZAC
+       bool
+
+config OMAP_PACKAGE_CBC
+       bool
+
+config OMAP_PACKAGE_CBB
+       bool
+
+config OMAP_PACKAGE_CUS
+       bool
+
+config OMAP_PACKAGE_CBP
+       bool
+
+config OMAP_PACKAGE_CBL
+       bool
+
+config OMAP_PACKAGE_CBS
+       bool
+
+comment "OMAP Board Type"
+	depends on ARCH_OMAP2PLUS
+
+config MACH_OMAP_GENERIC
+	bool "Generic OMAP board"
+	depends on ARCH_OMAP2
+	default y
+
+config MACH_OMAP2_TUSB6010
+	bool
+	depends on ARCH_OMAP2 && SOC_OMAP2420
+	default y if MACH_NOKIA_N8X0
+
+config MACH_OMAP_H4
+	bool "OMAP 2420 H4 board"
+	depends on SOC_OMAP2420
+	default y
+	select OMAP_PACKAGE_ZAF
+	select OMAP_DEBUG_DEVICES
+
+config MACH_OMAP_APOLLON
+	bool "OMAP 2420 Apollon board"
+	depends on SOC_OMAP2420
+	default y
+	select OMAP_PACKAGE_ZAC
+
+config MACH_OMAP_2430SDP
+	bool "OMAP 2430 SDP board"
+	depends on SOC_OMAP2430
+	default y
+	select OMAP_PACKAGE_ZAC
+
+config MACH_OMAP3_BEAGLE
+	bool "OMAP3 BEAGLE board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_DEVKIT8000
+	bool "DEVKIT8000 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CUS
+
+config MACH_OMAP_LDP
+	bool "OMAP3 LDP board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_OMAP3530_LV_SOM
+	bool "OMAP3 Logic 3530 LV SOM board"
+	depends on ARCH_OMAP3
+	select OMAP_PACKAGE_CBB
+	default y
+	help
+	 Support for the LogicPD OMAP3530 SOM Development kit
+	 for full description please see the products webpage at
+	 http://www.logicpd.com/products/development-kits/texas-instruments-zoom%E2%84%A2-omap35x-development-kit
+
+config MACH_OMAP3_TORPEDO
+	bool "OMAP3 Logic 35x Torpedo board"
+	depends on ARCH_OMAP3
+	select OMAP_PACKAGE_CBB
+	default y
+	help
+	 Support for the LogicPD OMAP35x Torpedo Development kit
+	 for full description please see the products webpage at
+	 http://www.logicpd.com/products/development-kits/zoom-omap35x-torpedo-development-kit
+
+config MACH_OVERO
+	bool "Gumstix Overo board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_OMAP3EVM
+	bool "OMAP 3530 EVM board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_OMAP3517EVM
+	bool "OMAP3517/ AM3517 EVM board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_CRANEBOARD
+	bool "AM3517/05 CRANE board"
+	depends on ARCH_OMAP3
+	select OMAP_PACKAGE_CBB
+
+config MACH_OMAP3_PANDORA
+	bool "OMAP3 Pandora"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+	select REGULATOR_FIXED_VOLTAGE
+
+config MACH_OMAP3_TOUCHBOOK
+	bool "OMAP3 Touch Book"
+	depends on ARCH_OMAP3
+	default y
+	select BACKLIGHT_CLASS_DEVICE
+
+config MACH_OMAP_3430SDP
+	bool "OMAP 3430 SDP board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_NOKIA_N800
+       bool
+
+config MACH_NOKIA_N810
+       bool
+
+config MACH_NOKIA_N810_WIMAX
+       bool
+
+config MACH_NOKIA_N8X0
+	bool "Nokia N800/N810"
+	depends on SOC_OMAP2420
+	default y
+	select OMAP_PACKAGE_ZAC
+	select MACH_NOKIA_N800
+	select MACH_NOKIA_N810
+	select MACH_NOKIA_N810_WIMAX
+
+config MACH_NOKIA_RM680
+	bool "Nokia RM-680 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_NOKIA_RX51
+	bool "Nokia RX-51 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_OMAP_ZOOM2
+	bool "OMAP3 Zoom2 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+	select SERIAL_8250
+	select SERIAL_CORE_CONSOLE
+	select SERIAL_8250_CONSOLE
+	select REGULATOR_FIXED_VOLTAGE
+
+config MACH_OMAP_ZOOM3
+	bool "OMAP3630 Zoom3 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBP
+	select SERIAL_8250
+	select SERIAL_CORE_CONSOLE
+	select SERIAL_8250_CONSOLE
+	select REGULATOR_FIXED_VOLTAGE
+
+config MACH_CM_T35
+	bool "CompuLab CM-T35 module"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CUS
+
+config MACH_CM_T3517
+	bool "CompuLab CM-T3517 module"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_IGEP0020
+	bool "IGEP v2 board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+
+config MACH_IGEP0030
+	bool "IGEP OMAP3 module"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBB
+	select MACH_IGEP0020
+
+config MACH_SBC3530
+	bool "OMAP3 SBC STALKER board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CUS
+
+config MACH_OMAP_3630SDP
+	bool "OMAP3630 SDP board"
+	depends on ARCH_OMAP3
+	default y
+	select OMAP_PACKAGE_CBP
+
+config MACH_TI8168EVM
+	bool "TI8168 Evaluation Module"
+	depends on SOC_OMAPTI816X
+	default y
+
+config MACH_OMAP_4430SDP
+	bool "OMAP 4430 SDP board"
+	default y
+	depends on ARCH_OMAP4
+	select LEDS_OMAP4430_SDP_DISPLAY
+	select LEDS_OMAP4430_SDP_KEYPAD
+	select SENSORS_LM75
+	select INPUT_BH1780
+	select INPUT_BMP085
+	select INPUT_HMC5843
+	select INPUT_SFH7741
+	select INPUT_MISC
+	select HWMON
+	select INPUT_CMA3000
+	select INPUT_CMA3000_I2C
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select REGULATOR_FIXED_VOLTAGE
+	select OMAP_TPS6236X
+	select TOUCHSCREEN_SYNTM12XX
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	#select TWL6040_VIB
+	select TWL6030_BCI_BATTERY
+	select CHARGER_BQ2415x
+	select TWL6030_GPADC
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select OMAP_RFKILL_STE_MODEM
+
+config MACH_OMAP_BLAZE
+	bool "OMAP 44xx Tablet2 Board"
+	default y
+	depends on ARCH_OMAP4
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select TOUCHSCREEN_QUANTUM_OBP
+	select TOUCHSCREEN_CYPRESS_TTSP
+	select LEDS_OMAP4430_SDP_DISPLAY
+	select LEDS_OMAP4430_SDP_KEYPAD
+	select INPUT_TSL2771
+	select INPUT_BMP085
+	select INPUT_HMC5843
+	select INPUT_MPU3050
+	select INPUT_BMA180
+	select PANEL_TC358765
+	select KEYBOARD_GPIO
+	#select TWL6040_VIB
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+
+config MACH_INNOCOMM_ORACLE
+	bool "Innocomm Oracle board"
+	default n
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	#select TWL6040_VIB
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+#	select REGULATOR_DEBUG
+#	select REGULATOR_VERBOSE_DEBUG
+
+choice
+	prompt "InnoComm Oracle Product"
+	depends on MACH_INNOCOMM_ORACLE
+	default INNOCOMM_ORACLE
+
+config INNOCOMM_ORACLE
+	depends on MACH_INNOCOMM_ORACLE
+	bool "Oracle"
+
+config INNOCOMM_DELPHIV
+	depends on MACH_INNOCOMM_ORACLE
+	bool "DelphiV"
+
+config INNOCOMM_TC978C
+	depends on MACH_INNOCOMM_ORACLE
+	bool "TC978C"
+
+endchoice
+
+config MACH_OMAP4_TALOS7
+	bool "OMAP 44xx Talos7 Board"
+	default y
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	#select TWL6040_VIB
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+	select INPUT_ELAN6804
+	select SENSORS_LSM303DLH
+	select SENSORS_L3G4200D
+	select TOUCHSCREEN_NT11003
+#	select TOUCHSCREEN_FT5306
+	select PANEL_OMAP4_TALOS7
+	select OMAP2_DSS_DPI
+###	select CHARGER_BQ2416x
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+
+	select ANDROID_BOOT_REASON
+
+config MACH_OMAP4_QUARTZ
+	bool "OMAP 44xx Quartz Board"
+	default n
+	depends on ARCH_OMAP4
+	select ARM_ERRATA_764369 if SMP
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+#	select INPUT_ELAN6804
+#	select SENSORS_LSM303DLH
+#	select SENSORS_L3G4200D
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+#	select OMAP4_DSS_FIFO_UNDERFLOW_WORKAROUND
+#	select OMAP4_DSS_FIFO_WORKAROUND_DEBUG
+	select OMAP2_DSS_DSI
+	select PANEL_TC358765
+#	select TC358765_DEBUG
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select TOUCHSCREEN_QUARTZ
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+#	select EMERGENCY_SHUTDOWN
+#	select EMERGENCY_SHUTDOWN_LOCK_CPU_MAX_FREQ
+#	select EMERGENCY_SHUTDOWN_SYNC_FS
+#	select EMERGENCY_SHUTDOWN_REMOUNT_RO
+#	select REGULATOR_DEBUG
+#	select REGULATOR_VERBOSE_DEBUG
+
+config MACH_OMAP4_SAGA
+	bool "OMAP 44xx Saga Board"
+	default n
+	depends on ARCH_OMAP4
+	select ARM_ERRATA_764369 if SMP
+#	select OMAP4_TWL6032_NON_DVS_RANGE_VSEL_DEBUG
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	#select TWL6040_VIB
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	#select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+	select INPUT_ELAN6802
+	select SENSORS_BMA2X2
+	select SENSORS_BMM050
+#	select TOUCHSCREEN_FT5306
+	select TOUCHSCREEN_FT5316
+	select OMAP2_DSS_DSI
+	select PANEL_LS047K1SX01F
+	select PANEL_LS047K1SX01
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+#	select REGULATOR_DEBUG
+#	select REGULATOR_VERBOSE_DEBUG
+
+config MACH_OMAP4_TALOS10
+	bool "OMAP 44xx Talos10 Board"
+	default y
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	#select TWL6040_VIB
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select INPUT_ELAN6804
+	select SENSORS_LSM303DLH
+	select SENSORS_L3G4200D
+	select TOUCHSCREEN_NT11003
+	select PANEL_OMAP4_TALOS10
+	select OMAP2_DSS_DPI
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+###	select CHARGER_BQ2416x
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+
+config MACH_OMAP4_PUZZLE
+	bool "OMAP 44xx Puzzle Board"
+	default n
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	#select TWL6040_VIB
+	#select INPUT_ELAN6804
+	#select SENSORS_LSM303DLH
+	#select SENSORS_L3G4200D
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_DSS_FIFO_UNDERFLOW_WORKAROUND
+#	select OMAP4_DSS_FIFO_WORKAROUND_DEBUG
+	select PANEL_S194TALAA0
+	#select PANEL_B101EW05
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+###	select CHARGER_BQ2416x
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select REGULATOR_DEBUG
+	select REGULATOR_VERBOSE_DEBUG
+
+config MACH_OMAP4_ZEUS
+	bool "OMAP 44xx Zeus"
+	default n
+	depends on ARCH_OMAP4
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_SKIP_FIRST_OFF
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select INPUT_MISC
+	select HWMON
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+###	select CHARGER_BQ27520
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select KEYBOARD_GPIO
+	select INPUT_ELAN6804
+	select INPUT_BMA250E
+	select INPUT_AH180
+#	select TOUCHSCREEN_FT5X06
+	select PANEL_HV070WX1
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select SENSORS_LM75
+	select ANDROID_BOOT_REASON
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+
+config MACH_OMAP4_PB1ICOM
+	bool "OMAP 44xx PB1icom Board"
+	default n
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_DSS_FIFO_UNDERFLOW_WORKAROUND
+#	select OMAP4_DSS_FIFO_WORKAROUND_DEBUG
+	select OMAP2_DSS_DPI
+	select PANEL_OMAP4_TALOS7
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	#select TWL6040_VIB
+	select INPUT_ELAN6804
+	select SENSORS_LSM303DLH
+	select SENSORS_L3G4200D
+###	select CHARGER_BQ2416x
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select REGULATOR_DEBUG
+	select REGULATOR_VERBOSE_DEBUG
+	select TOUCHSCREEN_NT11003
+
+config MACH_OMAP4_WINMATE
+	bool "OMAP 44xx Winmate Board"
+	default n
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select CDC_TCXO
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select OMAP4_DSS_FIFO_WORKAROUND
+	select PANEL_OMAP4_TALOS7
+	#select PANEL_BF097XN
+	select FB_OMAP2
+	select FB_OMAP_BOOTLOADER_INIT
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+	select NEW_LEDS
+	select LEDS_CLASS
+	select LEDS_TWL6032_PWM
+	select LEDS_TWL6032_PWM_DEBUG
+#	select LEDS_TWL6032_PWM_VERBOSE_DEBUG
+	select OMAP2_DSS_ANDROID_BACKLIGHT
+	select OMAP2_DSS_ANDROID_BACKLIGHT_DEBUG
+#	select OMAP2_DSS_ANDROID_BACKLIGHT_VERBOSE_DEBUG
+	#select TWL6040_VIB
+	select INPUT_ELAN6804
+	select SENSORS_LSM303DLH
+	select SENSORS_L3G4200D
+###	select CHARGER_BQ2416x
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+	select REGULATOR_DEBUG
+	select REGULATOR_VERBOSE_DEBUG
+	select TOUCHSCREEN_FT5406WIN
+	select TOUCHSCREEN_EXC7200WIN
+
+
+config MACH_OMAP4_OLYMPUS
+	bool "OMAP 44xx Olympus"
+	default n
+	depends on ARCH_OMAP4
+	select LEDS_OMAP4430_SDP_DISPLAY
+	select LEDS_OMAP4430_SDP_KEYPAD
+	select INPUT_MISC
+	select HWMON
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+	select INPUT_TWL6030_PWRBUTTON
+	select TWL6030_BCI_BATTERY
+	select TWL6030_GPADC
+	select KEYBOARD_GPIO
+	select INPUT_ELAN6804
+	select INPUT_BMA250E
+	select INPUT_AH180
+	select TOUCHSCREEN_NT11003
+	select PANEL_OMAP4_TALOS10
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select ANDROID_BOOT_REASON
+	select OMAP4_HWMOD_GPIO1_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO2_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO3_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO4_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO5_INIT_NO_RESET
+	select OMAP4_HWMOD_GPIO6_INIT_NO_RESET
+
+config MACH_OMAP4_WEDJAT
+	bool "OMAP 44xx WEDJAT Dongle"
+	default n
+	depends on ARCH_OMAP4
+	select OMAP4_EMIF_LPDDR2_AUTO_SETUP
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select OMAP_PAD_MANAGER
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+	select REGULATOR_FIXED_VOLTAGE
+	select TWL6030_POWEROFF
+#	select INPUT_TWL6030_PWRBUTTON
+#	select TOUCHSCREEN_NT11003
+#	select PANEL_OMAP4_TALOS10
+#	select OMAP2_DSS_DPI
+#	select CHARGER_BQ2416x
+#	select CDC_TCXO
+###	select TWL603x_BCI_BATTERY
+###	select TWL6030_GPADC
+	select ANDROID_BOOT_REASON
+#	select REGULATOR_DEBUG
+#	select REGULATOR_VERBOSE_DEBUG
+
+
+config WORKAROUND_PATCH_FOR_ZEUS_EP1
+	bool "OMAP4 ZEUS EP1 WORKAROUND PATCH, Should be removed after fixed "
+	default y
+	depends on MACH_OMAP4_ZEUS
+	
+ 			
+config MACH_OMAP4_PANDA
+	bool "OMAP4 Panda Board"
+	default y
+	depends on ARCH_OMAP4
+	select OMAP_PACKAGE_CBL
+	select OMAP_PACKAGE_CBS
+	select REGULATOR_FIXED_VOLTAGE
+	select OMAP_TPS6236X
+	select OMAP_REBOOT_REASON
+	select OMAP_RAM_CONSOLE
+
+config OMAP3_EMU
+	bool "OMAP3 debugging peripherals"
+	depends on ARCH_OMAP3
+	select ARM_AMBA
+	select OC_ETM
+	help
+	  Say Y here to enable debugging hardware of omap3
+
+config OMAP3_SDRC_AC_TIMING
+	bool "Enable SDRC AC timing register changes"
+	depends on ARCH_OMAP3
+	default n
+	help
+	  If you know that none of your system initiators will attempt to
+	  access SDRAM during CORE DVFS, select Y here.  This should boost
+	  SDRAM performance at lower CORE OPPs.  There are relatively few
+	  users who will wish to say yes at this point - almost everyone will
+	  wish to say no.  Selecting yes without understanding what is
+	  going on could result in system crashes;
+
+config OMAP_TPS6236X
+       bool
+
+config OMAP_ALLOW_OSWR
+	bool  "Enable Open Switch Retention"
+	depends on ARCH_OMAP4
+	default n
+	help
+	  Select this option to enable OSWR support.
+	  Which means the Logic of power domains can be lost now
+	  unlike the CSWR wherein the logic is retained
+
+config OMAP_FIQ_DEBUGGER
+	bool "Enable the serial FIQ debugger on OMAP"
+	default y
+	select FIQ_DEBUGGER
+	help
+	  Enables the serial FIQ debugger on OMAP"
+
+config OMAP_PAD_MANAGER
+	depends on ARCH_OMAP3 || ARCH_OMAP4
+	bool "Enable pad manager for OMAP"
+	default y
+	help
+	  Enable pad manager for OMAP3/4
+
+config OMAP_REBOOT_REASON
+	depends on ARCH_OMAP4
+	bool
+
+config OMAP4_DPLL_CASCADING
+       bool  "Enable DPLL Cascading for OMAP4"
+       depends on ARCH_OMAP4
+       depends on PM
+       depends on HAS_EARLYSUSPEND
+       default y
+       help
+         Select this option to enable DPLL Cascading during Low power mp3
+         playback. It will enter DPLL cascade when :
+               - Head set is inserted.
+               - Display is Off.
+               - No USB.
+
+config OMAP4_ONLY_OMAP4430_DPLL_CASCADING
+       bool  "Enable DPLL Cascading for OMAP4430 only"
+       depends on OMAP4_DPLL_CASCADING
+       #default y
+       default n
+       help
+         Enables DPLL Cascading only for OMAP4430.
+	 Current DPLL cascading implementation is going to be used
+	 only on OMAP4430, where it provides significant power savings.
+	 Keeps DPLL cascading disabled for other OMAPs.
+
+config OMAP_RAM_CONSOLE
+        bool "Enable OMAP support for Android RAM console"
+        depends on ANDROID_RAM_CONSOLE
+        help
+          Select this option to enable Android RAM console support on OMAP.
+          This allows saving the kernel printk messages to a buffer in RAM, so
+          that after a kernel panic they can be viewed in the next kernel
+          invocation, by accessing /proc/last_kmsg
+          NOTE: Board file needs to invoke relevant api to enable the support
+
+config OMAP4_PPA_CPU1_ONLINE_BUG
+	bool "Enable Support for CPU1 ONLINE WA for OSWR/OFF"
+	depends on ARCH_OMAP4
+	depends on OMAP_ALLOW_OSWR
+	default y
+	help
+	  If an non GP OMAP4 device is used and PPA revision is < v1.7.3,
+	  the device does not perform the memory maintenance and TLB sync
+	  operations required before releasing CPU1 to HLOS. This results
+	  in crash while resuming from OFF mode.
+
+	  Disable this option *ONLY IF* you meet the minimum PPA version
+	  requirement.
+
+	  If, on the other hand, you do not understand the change, leave the
+	  default as enabled.
+
+config OMAP4_ARM_ERRATA_742230
+	bool "Enables the workaround for ARM errata 742230 on GP devices"
+	default y
+	help
+	  Enables the ARM errata 742230 on OMAP443x and OMAP446x (GP) devices.
+	  This involves setting bit 4 of the CP15 diagnostic control register.
+	  This is handled for HS devices in the PPA code and does not need to be
+	  enabled."
+
+config OMAP4_ARM_ERRATA_751472
+	bool "Enables the workaround for ARM errata 751472 on GP devices"
+	default y
+	help
+	  Enables the ARM errata 751472 on OMAP443x and OMAP446x (GP) devices.
+	  This involves setting bit 11 of the CP15 diagnostic control register.
+	  This is handled for HS devices in the PPA code and does not need to be
+	  enabled."
+
+config OMAP4_ARM_ERRATA_743622
+	bool "Enabled the workaround for ARM errata 743622 on GP devices"
+	default y
+	help
+	  Enables the workaround for ARM errata 743622 on OMAP4.
+	  This involves setting bit 6 of the CP15 diagnostic control register.
+	  This is handled for HS devices in the PPA code and does not need to be
+	  enabled."
+
+config OMAP4_HSOTG_ED_CORRECTION
+	bool "OMAP 44XX HSOTG Eye diagram correction"
+	depends on ARCH_OMAP4
+	default y
+	help
+	  Select this option to overrive HSOTG PHY settings in
+	  order to improve Eye Diagramm. On 4430 CPUs this should
+	  improve Eye Diagram at least 8%.
+
+config OMAP_RFKILL_STE_MODEM
+	bool "Enable OMAP RFKILL driver for ST-E modem"
+	depends on RFKILL || !RFKILL
+	help
+	  Select this option to enable usage of RFKILL driver for ST-E modem on
+	  OMAP platforms. This will permit control of power on and off sequences
+	  of the modem as well as necessary dynamic pin muxing of AP/CP
+	  interfaces (platform data dependant)
+
+config MACH_OMAP_USB_ANT
+	bool "OMAP ANT+ USB interface"
+	depends on ARCH_OMAP4
+	help
+	   Say yes if you want to compile support for external ANT+ USB.
+
+config MACH_OMAP_USB_ANT_POWER_ALWAYS_ON
+	bool "Don't turn off ANT+ power"
+	default n
+	depends on MACH_OMAP_USB_ANT
+	help
+	   Say yes if you want to keep ANT+ USB power on.
+
+config OMAP4_OFF_SYSCLK_ON
+	bool "OMAP System Clock On/off switch during OFF mode"
+	depends on ARCH_OMAP4
+	help
+	   Say yes if you want want to keep System Clock on during OFF mode. This
+	   can make OMAP4 to handle USB remote wakeup in about 5ms.
+
+endmenu
+
+endif

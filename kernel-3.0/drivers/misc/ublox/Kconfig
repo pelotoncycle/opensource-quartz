@@ -1,0 +1,7 @@
+#
+menu "ublox neo6 GPS"
+config UBLOX_GPS
+	tristate "gps driver for ublox"
+	help
+	  This enables the GPS driver for ublox neo6 devices.
+endmenu
